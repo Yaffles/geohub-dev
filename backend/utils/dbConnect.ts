@@ -1,6 +1,8 @@
 import { Collection, Db, MongoClient } from 'mongodb'
 import { RecentSearch } from '@types'
 
+console.log("a");
+
 export const collections: {
   users?: Collection
   games?: Collection
@@ -27,7 +29,9 @@ export const dbConnect = async () => {
   }
 
   try {
+    console.log("b");
     const dbConnection = await client.connect()
+    console.log("c");
     const db = dbConnection.db(process.env.DB_NAME)
 
     console.log(`Using new DB connection: ${IS_PROD ? 'Prod DB' : 'Local DB'}`)
