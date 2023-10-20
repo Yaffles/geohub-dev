@@ -1,8 +1,11 @@
 /* eslint-disable import/no-anonymous-default-export */
-console.log("first")
+console.log("first");
 import { ObjectId } from 'mongodb'
+console.log("second");
 import { NextApiRequest, NextApiResponse } from 'next'
+console.log("third");
 import { collections, dbConnect, throwError } from '@backend/utils'
+console.log("fourth");
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   console.log("test");
