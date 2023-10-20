@@ -32,7 +32,7 @@ export const dbConnect = async () => {
   try {
     console.log("b");
     const dbConnection = await client.connect()
-    console.log("c");
+    console.log("c ");
     const db = dbConnection.db(process.env.DB_NAME)
 
     console.log(`Using new DB connection: ${IS_PROD ? 'Prod DB' : 'Local DB'}`)
