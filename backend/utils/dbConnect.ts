@@ -16,7 +16,8 @@ export const collections: {
 } = {}
 
 const IS_PROD = process.env.NODE_ENV === 'production'
-const MONGO_URI = IS_PROD ? (process.env.MONGO_URI as string) : (process.env.LOCAL_MONGO as string)
+// const MONGO_URI = IS_PROD ? (process.env.MONGO_URI as string) : (process.env.LOCAL_MONGO as string)
+const MONGO_URI = "mongodb+srv://new-user-01:eXbAQ5qxxRmPp0eg@cluster0.cgkk5vj.mongodb.net/?retryWrites=true&w=majority";
 
 let cachedDb: Db | null = null
 console.log(MONGO_URI);
