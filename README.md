@@ -11,6 +11,7 @@
   <a href="https://www.buymeacoffee.com/geohubgame">Donate</a>
   <hr />
 </div>
+Cloned from geohub
 
 GeoHub is a free and open source geography guessing game inspired by Geoguessr.
 
