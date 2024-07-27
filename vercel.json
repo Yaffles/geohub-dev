@@ -1,7 +1,6 @@
 {
-  "functions": {
-    "api/cron/create-daily-challenge": {
-      "schedule": "@daily"
-    }
-  }
+  "crons": [{
+    "path": "/api/cron/create-daily-challenge",
+    "schedule": "0 14 * * *"
+  }]
 }
