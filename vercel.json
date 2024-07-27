@@ -1,0 +1,7 @@
+{
+  "functions": {
+    "api/cron/create-daily-challenge": {
+      "schedule": "@daily"
+    }
+  }
+}
