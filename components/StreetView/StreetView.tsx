@@ -264,6 +264,10 @@ const Streetview: FC<Props> = ({ gameData, setGameData, view, setView }) => {
 
   const handleMouseDown = (e: MouseEvent) => {
     if (!gameData.gameSettings.canPan) {
+      // If target is child of map, allow default behavior
+      const map = document.getElementsByClassName('map')[0];
+      if (map.contains(e.target as Node)) return;
+
       e.stopPropagation();
     }
   };
