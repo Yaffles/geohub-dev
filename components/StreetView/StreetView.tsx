@@ -262,6 +262,61 @@ const Streetview: FC<Props> = ({ gameData, setGameData, view, setView }) => {
     }
   }, [view])
 
+  const handleMouseDown = (e: MouseEvent) => {
+    if (!gameData.gameSettings.canPan) {
+      e.stopPropagation();
+    }
+  };
+
+  const handleTouchStart = (e: TouchEvent) => {
+    if (!gameData.gameSettings.canPan) {
+      e.stopPropagation();
+    }
+  };
+
+  useEffect(() => {
+    if (view !== 'Game') return
+
+    const div = document.getElementById('streetview');
+    if (!div) return;
+
+    div.addEventListener('mousedown', handleMouseDown, { capture: true });
+    div.addEventListener('touchstart', handleTouchStart, { capture: true });
+
+    // Only add event listeners if `canPan` is false
+    console.log(div.getElementsByClassName('gm-control-active').length);
+
+    // Cleanup event listeners on unmount or dependency change
+    return () => {
+      div.removeEventListener('mousedown', handleMouseDown, { capture: true });
+      div.removeEventListener('touchstart', handleTouchStart, { capture: true });
+    };
+  }, [view, gameData.gameSettings.canPan]);
+
+
+  function disableCompassControls() {
+    var compassControls = document.getElementsByClassName('gm-control-active');
+    console.log(compassControls);
+    for (var i = 0; i < compassControls.length; i++) {
+      let compassControl = compassControls[i] as HTMLElement;
+      compassControl.addEventListener('click', (e) => {
+        e.stopPropagation();
+      });
+    }
+  }
+
+  useEffect(() => {
+    if (loading) return;
+
+    const div = document.getElementById('streetview');
+    if (!div) return;
+
+    if (!gameData.gameSettings.canPan) {
+      disableCompassControls();
+    }
+
+  } , [loading, gameData.gameSettings.canPan]);
+
   return (
     <>
       <StyledStreetView showMap={!loading}>

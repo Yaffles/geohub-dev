@@ -89,10 +89,10 @@ const StyledButton = styled.button<StyledProps>`
 
   ${({ variant }) =>
     variant === 'destroy' &&
-    `     
+    `
       color: #fff;
       background-color: #7f1d1d;
-    
+
 
       &:hover {
         background-color: #991b1b;
