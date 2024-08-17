@@ -262,22 +262,34 @@ const Streetview: FC<Props> = ({ gameData, setGameData, view, setView }) => {
     }
   }, [view])
 
+
+  // Handle desktop mouse events
   const handleMouseDown = (e: MouseEvent) => {
     if (!gameData.gameSettings.canPan) {
-      // If target is child of map, allow default behavior
       const map = document.getElementsByClassName('map')[0];
       if (map.contains(e.target as Node)) return;
 
       e.stopPropagation();
     }
   };
-
+  // Handle mobile touch events
   const handleTouchStart = (e: TouchEvent) => {
     if (!gameData.gameSettings.canPan) {
+      const map = document.getElementsByClassName('map')[0];
+      if (map.contains(e.target as Node)) return;
+
       e.stopPropagation();
     }
   };
+  // Handle pointer events: touch
+  const handlePointerDown = (e: PointerEvent) => {
+    if (!gameData?.gameSettings?.canPan) {
+      const map = document.getElementsByClassName('map')[0];
+      if (map.contains(e.target as Node)) return;
 
+      e.stopPropagation();
+    }
+  };
   useEffect(() => {
     if (view !== 'Game') return
 
@@ -286,29 +298,26 @@ const Streetview: FC<Props> = ({ gameData, setGameData, view, setView }) => {
 
     div.addEventListener('mousedown', handleMouseDown, { capture: true });
     div.addEventListener('touchstart', handleTouchStart, { capture: true });
+    div.addEventListener('pointerdown', handlePointerDown, { capture: true });
 
-    // Only add event listeners if `canPan` is false
-    console.log(div.getElementsByClassName('gm-control-active').length);
-
-    // Cleanup event listeners on unmount or dependency change
     return () => {
       div.removeEventListener('mousedown', handleMouseDown, { capture: true });
       div.removeEventListener('touchstart', handleTouchStart, { capture: true });
+      div.removeEventListener('pointerdown', handlePointerDown, { capture: true });
     };
   }, [view, gameData.gameSettings.canPan]);
 
 
   function disableCompassControls() {
-    var compassControls = document.getElementsByClassName('gm-control-active');
-    console.log(compassControls);
+    const compassControls = document.getElementsByClassName('gm-control-active');
+
     for (var i = 0; i < compassControls.length; i++) {
-      let compassControl = compassControls[i] as HTMLElement;
+      const compassControl = compassControls[i] as HTMLElement;
       compassControl.addEventListener('click', (e) => {
         e.stopPropagation();
       });
     }
   }
-
   useEffect(() => {
     if (loading) return;
 
@@ -327,7 +336,7 @@ const Streetview: FC<Props> = ({ gameData, setGameData, view, setView }) => {
         {loading && <LoadingPage />}
 
         <div id="streetview">
-          <StreetViewControls handleBackToStart={handleBackToStart} handleUndoLastMove={gameData.gameSettings.canMove ? handleUndoLastMove : undefined} />
+          {gameData.gameSettings.canMove && <StreetViewControls handleBackToStart={handleBackToStart} handleUndoLastMove={gameData.gameSettings.canMove ? handleUndoLastMove : undefined} />}
           {view === 'Game' && <GameStatus gameData={gameData} handleSubmitGuess={handleSubmitGuess} />}
 
           {gameData.mode === 'standard' && (
