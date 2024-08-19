@@ -1,4 +1,4 @@
-export const OFFICIAL_WORLD_ID = '6185df7a7b54baf63473a53e'
+export const OFFICIAL_WORLD_ID = '66a230bde441aba03e06f5e2'
 export const COUNTRY_STREAKS_ID = 'streaks'
 export const DAILY_CHALLENGE_ID = '6185df7a7b54baf63473a53e'
 
